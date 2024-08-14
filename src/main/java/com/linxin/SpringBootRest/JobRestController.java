@@ -16,7 +16,7 @@ public class JobRestController {
     @Autowired
     private JobService service;
 
-    @GetMapping("jobPosts")
+    @GetMapping(path = "jobPosts", produces = {"application/json"}) // this method only returns json data, not xml
     // @ResponseBody // what it sent is an actual data body, not the view name
     public List<JobPost> getAllJobs() {
         return service.getAllJobs();
@@ -27,7 +27,7 @@ public class JobRestController {
         return service.getJob(postId);
     }
 
-    @PostMapping("jobPost")
+    @PostMapping(path = "jobPost", consumes = {"application/xml"}) // this method only accept xml data, not json
     public JobPost addJob(@RequestBody JobPost jobPost) {
         service.addJob(jobPost);
         return service.getJob(jobPost.getPostId());
